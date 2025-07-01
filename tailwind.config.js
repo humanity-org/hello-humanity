@@ -8,13 +8,21 @@ module.exports = {
   theme: {
     extend: {
       maxWidth: {
-        container: '69.375rem', // 1110px
+        container: '68.375rem', // 1110px
       },
       fontFamily: {
-        spaceGrotesk: ['Space Grotesk', 'sans-serif'],
+        Inter: ['Inter', 'sans-serif'],
       },
       padding: {
         page: '2.760416667%',
+      },
+      colors: {
+        primary: '#BA5400',
+        primaryHover: '#F2A969',
+        secondary: '#94F85F',
+        secondaryHover: '#C3FBA5',
+        background: '#EDFCEC',
+        text: '#0F1514',
       },
     },
   },
