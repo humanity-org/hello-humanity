@@ -8,7 +8,8 @@ body {
   @apply min-h-screen font-Inter relative text-[#202537];
 }
 
-div.layout-container {
+div.layout-container,
+div.card {
   background: transparent url('/Gradient_11.png') no-repeat center center;
   background-size: cover;
 }
