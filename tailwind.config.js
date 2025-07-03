@@ -23,6 +23,7 @@ module.exports = {
         secondaryHover: '#C3FBA5',
         background: '#EDFCEC',
         text: '#0F1514',
+        neutral: '#EEEEEE',
       },
     },
   },
