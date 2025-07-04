@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { ethers } from 'ethers'
 import toast from 'react-hot-toast'
 import './styles/globals.css'
 import MessageCard from './components/MessageCard'
@@ -9,7 +8,6 @@ import MessageCard from './components/MessageCard'
 export default function Page() {
   const [walletAddress, setWalletAddress] = useState()
   const [normalizedAddress, setNormalizedAddress] = useState('Connect Wallet')
-  const [humanId, setHumanId] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -39,12 +37,10 @@ export default function Page() {
       return
     }
 
-    console.log('wallet address is ', walletAddress)
-
     setLoading(true)
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_ADDRESS}/v1/human/verify?wallet_address=0x35e29915ae0E8191897c7421fE4C863686cB9C8a`,
+        `${process.env.NEXT_PUBLIC_API_ADDRESS}/v1/human/verify?${walletAddress}`,
         {
           headers: {
             'X-HP-API-Key': `${process.env.NEXT_PUBLIC_API_KEY}`,
@@ -52,18 +48,14 @@ export default function Page() {
         }
       )
 
-      // if (!response.ok) {
-      //   throw new Error('Network response was not ok')
-      // }
-
       const data = await response.json()
 
-      // Update message based on API response
+      // ? Update message based on API response
       if (data.is_human) {
         setIsSuccess(true)
-        setHumanId(data.user_id)
       } else {
         setIsSuccess(false)
+        toast.error('Sorry, you are not a verified human')
       }
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -102,9 +94,9 @@ export default function Page() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-key-icon lucide-key"
               >
                 <path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4" />
@@ -115,17 +107,11 @@ export default function Page() {
           </button>
         </div>
         <div className="layout-right">
-          {isSuccess && <MessageCard isSuccess={isSuccess} humanId={humanId} />}{' '}
-          : {<MessageCard isSuccess={isSuccess} humanId={''} />}
+          {
+            isSuccess ? <MessageCard isSuccess={isSuccess} /> : null // ? Don't render anything if the fetch is complete and unsuccessful
+          }
         </div>
       </div>
-      {/* {walletAddress && (
-        <div className="mt-4">
-          <p className="text-3xl fixed top-[3rem] left-[3rem]">
-            {walletAddress}
-          </p>
-        </div>
-      )} */}
     </div>
   )
 }
