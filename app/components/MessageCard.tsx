@@ -3,18 +3,15 @@ import Confetti from 'react-confetti-boom'
 
 interface MessageCardProps {
   isSuccess: boolean
-  humanId: string
 }
 
-const MessageCard: React.FC<MessageCardProps> = ({ isSuccess, humanId }) => {
+const MessageCard: React.FC<MessageCardProps> = ({ isSuccess }) => {
   return (
     <div
-      className={`rounded-[2rem] shadow-md h-1/2 w-full
-        ${isSuccess ? 'bg-white text-text' : 'bg-primary text-text'}
-        text-center`}
-      style={{ height: '50vh', width: '20rem' }}
+      className="rounded-[2rem] shadow-lg h-1/2 w-full bg-white text-text"
+      style={{ height: '24rem', width: '20rem' }}
     >
-      <div className="bg-background border-2 border-white h-[15rem] rounded-[2rem] flex items-center justify-center align-center w-full card">
+      <div className="bg-background border-2 border-white h-[15rem] rounded-t-[2rem] flex items-center justify-center align-center w-full card">
         <svg
           width="64"
           height="64"
@@ -46,35 +43,19 @@ const MessageCard: React.FC<MessageCardProps> = ({ isSuccess, humanId }) => {
         </svg>
       </div>
 
-      <p className="text-left font-[300] text-xl w-[90%] mx-auto mt-4">
+      <div className="text-left font-[300] text-xl w-[90%] mx-auto mt-4">
         <Confetti mode="boom" particleCount={150} />
-        {isSuccess ? (
-          <div className="flex items-start align-center justify-center">
-            Identity Verified
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="green"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              className="ml-[1rem]"
-            >
-              <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-          </div>
-        ) : (
-          'Error:'
-        )}
-      </p>
-      <p className="mt-[2rem]">
-        {isSuccess ? '' : 'You are not a verified human'}
-      </p>
-      {isSuccess && <p className="">{humanId}</p>}
+        <div className="flex items-start align-center font-semibold text-text justify-center mt-[0.85rem]">
+          Identity Verified
+        </div>
+      </div>
+      {isSuccess && (
+        <div className="flex items-center align-center justify-center mt-[1.5rem]">
+          <button className="px-4 py-2 bg-primary rounded text-[0.875rem] font-semibold text-white rounded hover:bg-primaryHover w-[75%] mx-auto uppercase tracking-[0.125rem]">
+            access
+          </button>
+        </div>
+      )}
     </div>
   )
 }
