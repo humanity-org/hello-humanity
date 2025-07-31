@@ -40,7 +40,7 @@ export default function Page() {
     setLoading(true)
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_ADDRESS}/v1/human/verify?${walletAddress}`,
+        `${process.env.NEXT_PUBLIC_API_ADDRESS}/v1/human/verify?wallet_address=${walletAddress}`,
         {
           headers: {
             'X-HP-API-Key': `${process.env.NEXT_PUBLIC_API_KEY}`,
@@ -50,12 +50,11 @@ export default function Page() {
 
       const data = await response.json()
 
-      // ? Update message based on API response
       if (data.is_human) {
         setIsSuccess(true)
       } else {
         setIsSuccess(false)
-        toast.error('Sorry, you are not a verified human')
+        toast.error('Sorry, your wallet cannot be verified as owned by a human')
       }
     } catch (error) {
       console.error('Error fetching data:', error)
@@ -107,9 +106,7 @@ export default function Page() {
           </button>
         </div>
         <div className="layout-right">
-          {
-            isSuccess ? <MessageCard isSuccess={isSuccess} /> : null // ? Don't render anything if the fetch is complete and unsuccessful
-          }
+          {isSuccess ? <MessageCard isSuccess={isSuccess} /> : null}
         </div>
       </div>
     </div>
